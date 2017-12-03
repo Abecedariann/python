@@ -7,6 +7,7 @@ import sys
 import json
 
 after_time="1512209386"
+neihan_list=[]
 # print after_time
 def main():
 	global after_time
@@ -36,15 +37,25 @@ def main():
 		print hjson['data']['max_time']
 		for i in range(20):
 			print hjson['data']['data'][i]['group']['content']
-			with open("a.txt","a+") as f:
-				f.write(str(i)+"."+hjson['data']['data'][i]['group']['content'].encode("utf-8"))
-		with open("a.txt","a+") as f:
-			f.write("\n\n\n")
+			if no_same(hjson['data']['data'][i]['group']['content']):
+				print hjson['data']['data'][i]['group']['content']
+			# with open("a.txt","a+") as f:
+			# 	f.write(str(i)+"."+hjson['data']['data'][i]['group']['content'].encode("utf-8"))
+		# with open("a.txt","a+") as f:
+		# 	f.write("\n\n\n")
+
 		print after_time
 	else:
 		print "nomore new"
 		print after_time
-
+def no_same(str):
+	global neihan_list
+	for m in neihan_list:
+		if m==str:
+			return False
+		else:
+			neihan_list.append(str)
+			return True
 
 if __name__ == '__main__':
 	main()
